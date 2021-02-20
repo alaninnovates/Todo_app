@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/header') %>
+    </head>
+    <body>
+        <h1>Todo app</h1>
+
+        <form action="/addtodo" method="post">
+            <p>Add a todo!</p>
+            <p>Enter todo:</p>
+            <input autocomplete="off" type="text" name="todo" required />
+            <button type="submit">Add todo!</button>
+        </form>
+
+        <% if (error) { %>
+        <p><%= error %></p>
+        <% } %>
+
+        <p>A list of your todos:</p>
+        <% if (todos !== []) { %>
+        <table style="width: 100%">
+            <tr>
+                <th>Todo id</th>
+                <th>Content</th>
+                <th>Remove</th>
+            </tr>
+            <% todos.forEach(todo => { %>
+            <tr>
+                <td><%= todo.id %></td>
+                <td><%= todo.title %></td>
+                <td><button>Delete</button></td>
+            </tr>
+            <% }) %>
+        </table>
+        <% } else { %>
+        <p>You have no todos! How about make some above?</p>
+        <% } %>
+        <footer><%- include('../partials/footer') %></footer>
+    </body>
+</html>
