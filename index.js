@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     connection.query(queries.getAll, (err, results, fields) => {
         if (err) console.error(err);
-        res.render('pages/index', { todos: results });
+        res.render('pages/index', { todos: results, error: '' });
     });
 });
 
@@ -31,6 +31,17 @@ app.post('/addtodo', (req, res) => {
     connection.query(queries.addTodo, [todo], (err, results, fields) => {
         if (err) console.error(err);
     });
+    res.redirect('/');
+});
+
+app.post('/removetodo', (req, res) => {
+    connection.query(
+        queries.removeTodo,
+        [parseInt(req.body.id)],
+        (err, results, fields) => {
+            if (err) console.error(err);
+        },
+    );
     res.redirect('/');
 });
 

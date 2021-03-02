@@ -13,26 +13,30 @@
             <button type="submit">Add todo!</button>
         </form>
 
-        <% if (error) { %>
+        <% if (error !== '') { %>
         <p><%= error %></p>
         <% } %>
 
         <p>A list of your todos:</p>
         <% if (todos !== []) { %>
+
         <table style="width: 100%">
             <tr>
-                <th>Todo id</th>
                 <th>Content</th>
                 <th>Remove</th>
             </tr>
-            <% todos.forEach(todo => { %>
+            <% todos.forEach((todo) => { %>
+
             <tr>
-                <td><%= todo.id %></td>
-                <td><%= todo.title %></td>
-                <td><button>Delete</button></td>
+                <form action="/removetodo" method="post">
+                    <input type="hidden" name="id" value=<%=todo.id %> />
+                    <td><%= todo.title %></td>
+                    <td><button type="submit">Delete</button></td>
+                </form>
             </tr>
             <% }) %>
         </table>
+
         <% } else { %>
         <p>You have no todos! How about make some above?</p>
         <% } %>
